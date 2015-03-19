@@ -10,11 +10,14 @@ import UIKit
 
 class AZBlinds: UIView {
 
-    // UIKit Dynamics 
+    // UIKit Dynamics
     let _animator :UIDynamicAnimator?
     var _gravity :UIGravityBehavior?
     var _collision :UICollisionBehavior?
     var _itemBehavior :UIDynamicItemBehavior?
+   
+    var blindSelected :((Int) -> ())?
+
     
     let _options :NSArray?
     var _spacingY :CGFloat = 60
@@ -36,8 +39,6 @@ class AZBlinds: UIView {
     private func createBlind(option :NSString) -> UIView {
         
        let screenSize = UIScreen.mainScreen().bounds
-        
-        println("\(screenSize.width)")
         
         let blind = UIView(frame:CGRectMake(0, _spacingY, 200, 44))
         blind.center = CGPointMake(screenSize.width/2, blind.center.y)
@@ -119,15 +120,14 @@ class AZBlinds: UIView {
     
     func blindTapped(sender :UITapGestureRecognizer) {
         
-        println("\(sender.view!.tag)")
-        
-        println("blind Tapped")
+        if((self.blindSelected) != nil) {
+            self.blindSelected!(sender.view!.tag)
+        }
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     /*
     // Only override drawRect: if you perform custom drawing.

@@ -17,7 +17,7 @@ class AZBlinds: UIView {
     var _itemBehavior :UIDynamicItemBehavior?
     
     let _options :NSArray?
-    var _spacingY :CGFloat = 100
+    var _spacingY :CGFloat = 60
     
     init(options :NSArray) {
         
@@ -35,7 +35,13 @@ class AZBlinds: UIView {
     
     private func createBlind(option :NSString) -> UIView {
         
-        let blind = UIView(frame:CGRectMake(80, _spacingY, 200, 44))
+       let screenSize = UIScreen.mainScreen().bounds
+        
+        println("\(screenSize.width)")
+        
+        let blind = UIView(frame:CGRectMake(0, _spacingY, 200, 44))
+        blind.center = CGPointMake(screenSize.width/2, blind.center.y)
+
         blind.layer.borderWidth = 1.0;
         blind.layer.borderColor = UIColor.whiteColor().CGColor
         
@@ -46,7 +52,7 @@ class AZBlinds: UIView {
         
         blind.addSubview(optionTitleLabel)
         
-        _spacingY += 60
+        _spacingY += screenSize.height / 10
         return blind
         
     }
